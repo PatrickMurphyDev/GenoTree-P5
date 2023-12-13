@@ -10,10 +10,10 @@ body {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    background: black;
+    background-color: rgb(30,30,30);
   }
   
-  canvas {
+  canvas, main {
     position: fixed;
     top: 50%;
     left: 50%;

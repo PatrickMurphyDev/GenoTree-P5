@@ -26,6 +26,8 @@ function setup() {
 
     params = getURLParams();
     canvas_element = createCanvas(1280, 720);
+    rectMode(CENTER);
+    angleMode(DEGREES);
     
     frameRate(60);
     noStroke();
@@ -45,7 +47,7 @@ function touchStarted() {
 }
 
 function mouseClicked(){
-    
+    entities.addEntity(new SubjectEntity(createVector(mouseX,mouseY)));
 }
 
 function uuidv4() {
