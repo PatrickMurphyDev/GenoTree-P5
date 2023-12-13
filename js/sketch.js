@@ -47,7 +47,13 @@ function touchStarted() {
 }
 
 function mouseClicked(){
-    entities.addEntity(new SubjectEntity(createVector(mouseX,mouseY)));
+    console.log(entities.getLength());
+    if(entities.getLength() < 2){
+        entities.addEntity(new SubjectEntity(createVector(mouseX,mouseY)));
+    }else{
+        entities.addEntity(new RelationshipEntity(entities.getEntities()[0],entities.getEntities()[1]));
+    }
+    
 }
 
 function uuidv4() {
@@ -55,3 +61,7 @@ function uuidv4() {
     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
   );
 }
+
+function setLineDash(list) {
+    drawingContext.setLineDash(list);
+  }
