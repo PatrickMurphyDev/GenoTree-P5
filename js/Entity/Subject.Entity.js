@@ -1,4 +1,5 @@
-const SUBJECT_SHAPE_LIST = ['GenderMale','GenderFemale','Pet','Miscarriage']
+const SUBJECT_SHAPE_LIST = ['GenderMale','GenderFemale','Pet','Miscarriage'];
+const SUBJECT_DECEASED_STATUS_LIST = [true,false];
 
 class SubjectEntity extends Entity {
     constructor(location, elementList){
@@ -14,7 +15,8 @@ class SubjectEntity extends Entity {
         this.elementList = elementList || ["Label"];
         this.elementList.push(random(SUBJECT_SHAPE_LIST));
 
-        this.isAlive = true;
+        //this.isAlive = true;
+        this.isAlive = random() > 0.5;
 
         var linkCoordOffset = 1;
         this.linkCoords = [createVector(this.location.x,this.location.y+this.sizePx*linkCoordOffset),
@@ -47,6 +49,7 @@ class SubjectEntity extends Entity {
 
     drawLabel(){
         if(this.elementList.includes("Label")){
+            noStroke();
             var tmpTxt = this.label;
             text(tmpTxt,this.location.x-textWidth(tmpTxt)/2,this.location.y+this.sizePx);    
         }
@@ -66,12 +69,6 @@ class SubjectEntity extends Entity {
             rect(this.location.x,this.location.y, this.sizePx);
         }
         
-        // Miscarriage
-        fill(this.fillColor);
-        if(this.elementList.includes("Miscarriage")){
-            circle(this.location.x,this.location.y, this.sizePx*.2);
-        }
-
         // diamond pet
         if(this.elementList.includes("Pet")){
             push(); // push transformation matrix
@@ -82,22 +79,31 @@ class SubjectEntity extends Entity {
             pop(); // restore transformation matrix
         }
         
+        // Miscarriage
+        if(this.elementList.includes("Miscarriage")){
+            fill(this.fillColor);
+            circle(this.location.x,this.location.y, this.sizePx*.2);
+        }
+
+        
         // question mark unknown gender
     }
 
     // Dead / Alive
     drawDeceasedStatus(){
         if(!this.isAlive){
+            noFill();
+            stroke(this.strokeColor);
+            strokeWeight(this.strokeWeight);
             line(this.location.x-this.sizePx/2,this.location.y-this.sizePx/2,this.location.x+this.sizePx/2,this.location.y+this.sizePx/2,);
             line(this.location.x+this.sizePx/2,this.location.y-this.sizePx/2,this.location.x-this.sizePx/2,this.location.y+this.sizePx/2,);
         }
     }
 
     drawImage(){
-        noStroke();        
-        strokeWeight(1);
-
         if(this.image_path){
+            noStroke();     
+            noFill();
             imageMode(CENTER);
             image(this.image_path,this.location.x,this.location.y);
             imageMode(CORNER);
@@ -105,6 +111,7 @@ class SubjectEntity extends Entity {
     }
 
     drawLinkPoints(){
+        noFill();
         stroke(color(255,0,0));
         rect(this.linkCoords[0].x,this.linkCoords[0].y,2);
         rect(this.linkCoords[1].x,this.linkCoords[1].y,2);
