@@ -1,6 +1,3 @@
-const SUBJECT_SHAPE_LIST = ['GenderMale','GenderFemale','Pet','Miscarriage'];
-const SUBJECT_DECEASED_STATUS_LIST = [true,false];
-
 class SubjectEntity extends Entity {
     constructor(location, elementList){
         super(location,60);
@@ -16,7 +13,7 @@ class SubjectEntity extends Entity {
         this.elementList.push(random(SUBJECT_SHAPE_LIST));
 
         //this.isAlive = true;
-        this.isAlive = random() > 0.5;
+        this.isAlive = random() > 0.1;
 
         var linkCoordOffset = 1;
         this.linkCoords = [createVector(this.location.x,this.location.y+this.sizePx*linkCoordOffset),

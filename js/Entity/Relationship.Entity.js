@@ -9,7 +9,7 @@ class RelationshipEntity extends Entity {
         this.strokeWeight = 3;
         this.label = "Title";
         this.image_path = undefined;
-        this.multiples = 3;
+        this.multiples = Math.floor(random(1,3.99));
     }
 
     update(){
