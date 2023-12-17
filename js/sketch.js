@@ -21,6 +21,11 @@ function preload(){
 }
 
 function setup() {
+    drawingContext.shadowOffsetX = 7;
+    drawingContext.shadowOffsetY = -7;
+    drawingContext.shadowBlur = 14;
+    drawingContext.shadowColor = 'black';
+    
     entities = new EntityCollection();
     uielements = new UIElementCollection();
 

@@ -10,6 +10,26 @@ class SubjectEntity extends Entity {
         this.elementList = elementList || ["Label", "GenderMale"];
 
         this.isAlive = true;
+
+        var linkCoordOffset = 1;
+        this.linkCoords = [createVector(this.location.x,this.location.y+this.sizePx*linkCoordOffset),
+                            createVector(this.location.x+this.sizePx*linkCoordOffset,this.location.y),
+                            createVector(this.location.x,this.location.y-this.sizePx*linkCoordOffset),
+                            createVector(this.location.x-this.sizePx*linkCoordOffset,this.location.y)];
+    }
+
+    getNearestLinkPoint(SubIn){
+        var lowestDist = 9999;
+        var lowestObj;
+        for(var i = 0; i < this.linkCoords.length; i++){
+            var p = this.linkCoords[i];
+            var testDist = p.dist(SubIn.location);
+            if(testDist < lowestDist){
+                lowestDist = testDist;
+                lowestObj = p;
+            }
+        }
+        return lowestObj;
     }
 
     update(){
@@ -78,5 +98,11 @@ class SubjectEntity extends Entity {
             image(this.image_path,this.location.x,this.location.y);
             imageMode(CORNER);
         }
+
+        stroke(color(255,0,0));
+        rect(this.linkCoords[0].x,this.linkCoords[0].y,2);
+        rect(this.linkCoords[1].x,this.linkCoords[1].y,2);
+        rect(this.linkCoords[2].x,this.linkCoords[2].y,2);
+        rect(this.linkCoords[3].x,this.linkCoords[3].y,2);
     }
 }
