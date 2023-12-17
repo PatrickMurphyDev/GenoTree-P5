@@ -1,13 +1,18 @@
+const SUBJECT_SHAPE_LIST = ['GenderMale','GenderFemale','Pet','Miscarriage']
+
 class SubjectEntity extends Entity {
     constructor(location, elementList){
         super(location,60);
         this.sizePx = 50;
+        
         this.fillColor = color(0);
         this.strokeColor = color(0);
         this.strokeWeight = 4;
+
         this.label = "Title";
         this.image_path = undefined;
-        this.elementList = elementList || ["Label", "GenderMale"];
+        this.elementList = elementList || ["Label"];
+        this.elementList.push(random(SUBJECT_SHAPE_LIST));
 
         this.isAlive = true;
 
@@ -61,9 +66,9 @@ class SubjectEntity extends Entity {
             rect(this.location.x,this.location.y, this.sizePx);
         }
         
-        // Miscarrage
+        // Miscarriage
         fill(this.fillColor);
-        if(this.elementList.includes("Miscarrage")){
+        if(this.elementList.includes("Miscarriage")){
             circle(this.location.x,this.location.y, this.sizePx*.2);
         }
 
@@ -73,7 +78,7 @@ class SubjectEntity extends Entity {
             noFill();
             translate(this.location.x,this.location.y);
             rotate(45);
-            rect(0,0,sizePx*.75);
+            rect(0,0,this.sizePx*.75);
             pop(); // restore transformation matrix
         }
         
